@@ -176,7 +176,7 @@ def config_parser():
                         help='novel view iter')
     parser.add_argument("--factor_pose_novel", type=float, default=2.0,
                         help='factor of learning rate')
-    parser.add_argument("--N_novel_view", type=int, default=200,
+    parser.add_argument("--N_novel_view", type=int, default=20000,
                         help='novel view iter for optimizing poses')
 
     return parser

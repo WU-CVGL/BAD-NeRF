@@ -9,7 +9,7 @@ linear = False
 pose_lrate = 1e-4
 
 novel_view = True
-factor_pose_novel = 2.0
+factor_pose_novel = 5.0
 i_novel_view = 200000
 
 N_rand = 5000

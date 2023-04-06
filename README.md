@@ -21,7 +21,7 @@ We follow the real physical image formation process of a motion-blurred image to
 
 ```
 git clone https://github.com/WU-CVGL/BAD-NeRF
-cd bad-nerf
+cd BAD-NeRF
 pip install -r requirements.txt
 ```
 

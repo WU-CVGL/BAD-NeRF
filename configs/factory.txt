@@ -1,0 +1,28 @@
+expname = factory-linear
+basedir = ./logs
+datadir = ./data/nerf_llff_data/blurfactory
+dataset_type = llff
+
+factor = 1
+
+linear = True
+
+novel_view = True
+factor_pose_novel = 2.0
+i_novel_view = 200000
+
+N_rand = 5000
+deblur_images = 7
+
+N_samples = 64
+N_importance = 64
+
+use_viewdirs = True
+raw_noise_std = 1.0
+
+load_weights = False
+weight_iter = 200000
+
+i_img = 25000
+i_video = 200000
+i_weights = 10000

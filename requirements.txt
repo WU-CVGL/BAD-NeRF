@@ -1,0 +1,9 @@
+configargparse
+imageio
+imageio-ffmpeg
+matplotlib
+numpy
+scikit-learn<1
+scikit-image
+torch>=1.8
+torchvision>=0.9.1

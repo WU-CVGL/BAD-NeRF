@@ -29,7 +29,7 @@ pip install -r requirements.txt
 
 The data used in our experiment is a little different from Deblur-NeRF, we synthesize more realistic blurry images by just increasing the number of virtual images to 51 and keep the other settings fixed. You can download the data [here](https://westlakeu-my.sharepoint.com/:f:/g/personal/cvgl_westlake_edu_cn/EsgdW2cRic5JqerhNbTsxtkBqy9m6cbnb2ugYZtvaib3qA?e=bjK7op).
 
-For the scenes of Deblur-NeRF (cozy2room, factory etc.), the folder `images` only includes blurry images and the folder `images_1` additionally includes novel view images. But for our scenes (room-low, room-high and dark), there are no novel view images.
+For the scenes of Deblur-NeRF (*cozy2room*, *factory* etc.), the folder `images` only includes blurry images and the folder `images_1` additionally includes novel view images. But for our scenes (*room-low*, *room-high* and *dark*), there are no novel view images. Note that the images in the *dark* scene are undistorted, causing that there are some useless pixels, and you should uncomment the code of `Graph.forward` in `nerf.py`.
 
 ### 3. Configs
 

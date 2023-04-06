@@ -1,5 +1,7 @@
 # BAD-NeRF
 
+<a href=" "><img src="https://img.shields.io/badge/arXiv-2211.12853-b31b1b.svg" height=22.5></a>
+
 This is a PyTorch implementation of the paper [BAD-NeRF: Bundle Adjusted Deblur Neural Radiance Fields](https://arxiv.org/abs/2211.12853). (CVPR 2023)
 
 BAD-NeRF jointly learns the 3D representation and optimizes the camera poses with blurry images and inaccurate initial poses. We will update our project page soon.

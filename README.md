@@ -70,7 +70,7 @@ If you find this useful, please consider citing our paper:
 @article{wang2023badnerf,
   title={BAD-NeRF: Bundle Adjusted Deblur Neural Radiance Fields},
   author={Wang, Peng and Zhao, Lingzhe and Ma, Ruijie and Liu, Peidong},
-  journal={Proc. IEEE Conf. on Computer Vision and Pattern	Recognition (CVPR)},
+  journal={Proc. IEEE Conf. on Computer Vision and Pattern Recognition (CVPR)},
   year={2023}
 }
 ```

@@ -6,3 +6,5 @@ __pycache__/
 logs*/
 
 data/
+configs_test/
+weights/

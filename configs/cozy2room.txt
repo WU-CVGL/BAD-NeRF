@@ -1,4 +1,4 @@
-expname = cozyroom-linear
+expname = cozy2room-linear
 basedir = ./logs
 datadir = ./data/nerf_llff_data/blurcozy2room
 dataset_type = llff

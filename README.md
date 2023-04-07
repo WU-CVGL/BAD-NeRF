@@ -1,7 +1,7 @@
 # BAD-NeRF
 
 <a href="https://arxiv.org/abs/2211.12853"><img src="https://img.shields.io/badge/arXiv-2211.12853-b31b1b.svg" height=22.5></a>
-<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" height=22.5></a>
+<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/WU-CVGL/BAD-NeRF" height=22.5></a>
 
 This is a PyTorch implementation of the paper [BAD-NeRF: Bundle Adjusted Deblur Neural Radiance Fields](https://arxiv.org/abs/2211.12853) (CVPR 2023).
 
@@ -20,8 +20,8 @@ We follow the real physical image formation process of a motion-blurred image to
 ### 1. Setup environment
 
 ```
-git clone https://github.com/wangpeng000/bad-nerf.git
-cd bad-nerf
+git clone https://github.com/WU-CVGL/BAD-NeRF
+cd BAD-NeRF
 pip install -r requirements.txt
 ```
 

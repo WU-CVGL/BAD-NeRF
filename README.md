@@ -27,19 +27,29 @@ pip install -r requirements.txt
 
 ### 2. Download datasets
 
-You can download the data and weights (soon) [here](https://westlakeu-my.sharepoint.com/:f:/g/personal/cvgl_westlake_edu_cn/EsgdW2cRic5JqerhNbTsxtkBqy9m6cbnb2ugYZtvaib3qA?e=bjK7op).
+You can download the data and weights [here](https://westlakeu-my.sharepoint.com/:f:/g/personal/cvgl_westlake_edu_cn/EsgdW2cRic5JqerhNbTsxtkBqy9m6cbnb2ugYZtvaib3qA?e=bjK7op).
 
 For the scenes of Deblur-NeRF (*cozy2room*, *factory* etc.), the folder `images` only includes blurry images and the folder `images_1` additionally includes novel view images. But for our scenes (*room-low*, *room-high* and *dark*), there are no novel view images. Note that the images in the *dark* scene are undistorted, causing that there are some useless pixels, and you should uncomment the code of `Graph.forward` in `nerf.py`.
 
 ### 3. Configs
 
-Changing the data path and other parameters (if needed) in `configs/cozy2room.txt`.
+Changing the data path and other parameters (if needed) in `configs/cozy2room.txt`. We use *cozy2room* scene as an example.
 
-### 4. Running code
+### 4. Demo with our pretrained model
+
+You can test our code and render sharp images with the provided weight files. To do this, you should first put the weight file in the correspongding logs folder `./logs/cozy2room-linear`, and then change the parameter `load_weights=True` in `cozy2room.txt`, finally run
+
+```
+python test.py --config configs/cozy2room.txt
+```
+
+### 5. Training
 
 ```
 python train.py --config configs/cozy2room.txt
 ```
+
+After training, you can get deblurred images, optimized camera poses and synthesized novel view images.
 
 ## Notes
 

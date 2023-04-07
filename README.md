@@ -37,7 +37,7 @@ Changing the data path and other parameters (if needed) in `configs/cozy2room.tx
 
 ### 4. Demo with our pretrained model
 
-You can test our code and render sharp images with the provided weight files. To do this, you should first put the weight file in the correspongding logs folder `./logs/cozy2room-linear`, and then change the parameter `load_weights=True` in `cozy2room.txt`, finally run
+You can test our code and render sharp images with the provided weight files. To do this, you should first put the weight file under the correspongding logs folder `./logs/cozy2room-linear`, and then change the parameter `load_weights=True` in `cozy2room.txt`, finally run
 
 ```
 python test.py --config configs/cozy2room.txt

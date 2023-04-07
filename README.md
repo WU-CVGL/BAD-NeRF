@@ -49,7 +49,7 @@ The poses (`poses_bounds.npy`) are generated from only blurred images (folder `i
 
 ### Spline model
 
-We use `linear interpolation` as the default spline model in our experiments, you can simply change the parameter `linear` (in `configs/***.txt`) to `False` to use the higher-order spline model (i.e. `cubic B-Spline`).
+We use `linear interpolation` as the default spline model in our experiments, you can simply change the parameter `linear` (all the parameters can be changed in `configs/***.txt` or `run_nerf.py`) to `False` to use the higher-order spline model (i.e. `cubic B-Spline`).
 
 ### Virtual images
 
@@ -59,6 +59,8 @@ You can change the important parameter `deblur_images` to a smaller/bigger value
 
 After rebuttal, we found that sometimes the gradients will be NaN if `cubic B-Spline` model with a `pose_lrate=1e-3` is used. Therefore, we set the initial pose learning rate to 1e-4 and it may achieve a better performance compared to that in our paper. If the gradient appears NaN in your experiments unfortunately, just kill it and try again or decrease the `pose_lrate`.
 
+### Your own data
+Just put your own data in the folder `images` (only blurry images), and run `imgs2poses.py` script from the [LLFF code](https://github.com/fyusion/llff) to estimate camera poses and generate `poses_bounds.npy`. If you want to add novel view images (sharp images), please put them into the folder `images_1` with an interval of `llffhold` (a parameter used for novel view testing). Remember that, set parameter `novel_view` to `True` if `images_1` includes novel view images.
 ## Citation
 
 If you find this useful, please consider citing our paper:

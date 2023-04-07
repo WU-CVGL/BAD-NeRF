@@ -184,7 +184,7 @@ class Graph(nn.Module):
     def forward(self, i, img_idx, poses_num, H, W, K, args, novel_view=False):
         if novel_view:
             poses_sharp = se3_to_SE3(self.se3_sharp.weight)
-            ray_idx_sharp = torch.randperm(H * W)[:200]
+            ray_idx_sharp = torch.randperm(H * W)[:300]
             ret = self.render(i, poses_sharp, ray_idx_sharp, H, W, K, args)
             return ret, ray_idx_sharp, poses_sharp
 
@@ -300,7 +300,7 @@ class Graph(nn.Module):
             z_samples = z_samples.detach()
 
             z_vals, _ = torch.sort(torch.cat([z_vals, z_samples], -1), -1)
-            pts = rays_o[..., None, :] + rays_d[..., None, :] * z_vals[..., :, None]  # [N_rays, N_samples + N_importance, 3]
+            pts = rays_o[..., None, :] + rays_d[..., None, :] * z_vals[..., :, None]
 
             raw_output = self.nerf_fine.forward(barf_i, pts, viewdirs, args)
             rgb_map, disp_map, acc_map, weights, depth_map, sigma = self.nerf_fine.raw2output(raw_output, z_vals, rays_d)

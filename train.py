@@ -282,7 +282,7 @@ def train():
                 target_s_novel = target_s_novel.reshape(-1, 3)
                 loss_sharp = img2mse(ret_sharp['rgb_map'], target_s_novel)
                 psnr_sharp = mse2psnr(loss_sharp)
-                if 'rgb0' in ret:
+                if 'rgb0' in ret_sharp:
                     img_loss0 = img2mse(ret_sharp['rgb0'], target_s_novel)
                     loss_sharp = loss_sharp + img_loss0
                 if j%100==0:

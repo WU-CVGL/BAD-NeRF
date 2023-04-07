@@ -1,4 +1,4 @@
-expname = roomlow-cubib
+expname = roomlow-cubic
 basedir = ./logs
 datadir = ./data/nerf_llff_data/roomblur_low
 dataset_type = llff

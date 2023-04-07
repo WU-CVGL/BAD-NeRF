@@ -1,4 +1,4 @@
-expname = wine-cubib
+expname = wine-cubic
 basedir = ./logs
 datadir = ./data/nerf_llff_data/blurwine
 dataset_type = llff
@@ -9,7 +9,7 @@ linear = False
 pose_lrate = 1e-4
 
 novel_view = True
-factor_pose_novel = 2.0
+factor_pose_novel = 20.0
 i_novel_view = 200000
 
 N_rand = 5000

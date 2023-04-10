@@ -3,7 +3,7 @@
 <a href="https://arxiv.org/abs/2211.12853"><img src="https://img.shields.io/badge/arXiv-2211.12853-b31b1b.svg" height=22.5></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/WU-CVGL/BAD-NeRF" height=22.5></a>
 
-This is a PyTorch implementation of the paper [BAD-NeRF: Bundle Adjusted Deblur Neural Radiance Fields](https://arxiv.org/abs/2211.12853) (CVPR 2023). Authors: [Peng Wang](https://github.com/wangpeng000), [Lingzhe Zhao](https://github.com/LingzheZhao), Ruijie Ma, [Peidong Liu<sup>†</sup>](https://ethliup.github.io/). <sup>†</sup> represents the corresponding author. 
+This is a PyTorch implementation of the paper [BAD-NeRF: Bundle Adjusted Deblur Neural Radiance Fields](https://arxiv.org/abs/2211.12853) (CVPR 2023). Authors: [Peng Wang](https://github.com/wangpeng000), [Lingzhe Zhao](https://github.com/LingzheZhao) and Ruijie Ma, [Peidong Liu](https://ethliup.github.io/). 
 
 BAD-NeRF jointly learns the 3D representation and optimizes the camera motion trajectories within exposure time from blurry images and inaccurate initial poses. We will update our project page soon.
 
@@ -78,7 +78,7 @@ If you find this useful, please consider citing our paper:
 
 ```bibtex
 @article{wang2023badnerf,
-  title={BAD-NeRF: Bundle Adjusted Deblur Neural Radiance Fields},
+  title={{BAD-NeRF: Bundle Adjusted Deblur Neural Radiance Fields}},
   author={Wang, Peng and Zhao, Lingzhe and Ma, Ruijie and Liu, Peidong},
   journal={Proc. IEEE Conf. on Computer Vision and Pattern Recognition (CVPR)},
   year={2023}

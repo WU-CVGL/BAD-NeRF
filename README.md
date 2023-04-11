@@ -33,11 +33,11 @@ For the scenes of Deblur-NeRF (*cozy2room*, *factory* etc.), the folder `images`
 
 ### 3. Configs
 
-Changing the data path and other parameters (if needed) in `configs/cozy2room.txt`. We use *cozy2room* scene as an example.
+Change the data path and other parameters (if needed) in `configs/cozy2room.txt`. We use *cozy2room* scene as an example.
 
-### 4. Demo with our pretrained model
+### 4. Demo with our pre-trained model
 
-You can test our code and render sharp images with the provided weight files. To do this, you should first put the weight file under the correspongding logs folder `./logs/cozy2room-linear`, and then change the parameter `load_weights=True` in `cozy2room.txt`, finally run
+You can test our code and render sharp images with the provided weight files. To do this, you should first put the weight file under the corresponding logs folder `./logs/cozy2room-linear`, and then change the parameter `load_weights=True` in `cozy2room.txt`, finally run
 
 ```
 python test.py --config configs/cozy2room.txt
@@ -87,4 +87,4 @@ If you find this useful, please consider citing our paper:
 
 ## Acknowledgment
 
-The overall framework, metrics computing and camera transfromation are derived from [nerf-pytorch](https://github.com/yenchenlin/nerf-pytorch/), [Deblur-NeRF](https://github.com/limacv/Deblur-NeRF) and [BARF](https://github.com/chenhsuanlin/bundle-adjusting-NeRF) respectively. We appreciate the effort of the contributors to these repositories.
+The overall framework, metrics computing and camera transformation are derived from [nerf-pytorch](https://github.com/yenchenlin/nerf-pytorch/), [Deblur-NeRF](https://github.com/limacv/Deblur-NeRF) and [BARF](https://github.com/chenhsuanlin/bundle-adjusting-NeRF) respectively. We appreciate the effort of the contributors to these repositories.

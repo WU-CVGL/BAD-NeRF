@@ -7,6 +7,8 @@ This is a PyTorch implementation of the paper [BAD-NeRF: Bundle Adjusted Deblur 
 
 BAD-NeRF jointly learns the 3D representation and optimizes the camera motion trajectories within exposure time from blurry images and inaccurate initial poses. We will update our project page soon.
 
+<div><video autoplay loop controls src="https://user-images.githubusercontent.com/43722188/232816090-ced1fbbc-4246-45c6-a265-e7424e754c7b.mp4" muted="true"></video></div>
+
 ![teaser](./doc/bad-nerf.jpg)
 
 ## Method overview

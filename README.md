@@ -79,11 +79,13 @@ Just put your own data in the folder `images` (only blurry images), and run `img
 If you find this useful, please consider citing our paper:
 
 ```bibtex
-@article{wang2023badnerf,
-  title={{BAD-NeRF: Bundle Adjusted Deblur Neural Radiance Fields}},
-  author={Wang, Peng and Zhao, Lingzhe and Ma, Ruijie and Liu, Peidong},
-  journal={Proc. IEEE Conf. on Computer Vision and Pattern Recognition (CVPR)},
-  year={2023}
+@InProceedings{wang2023badnerf,
+    author    = {Wang, Peng and Zhao, Lingzhe and Ma, Ruijie and Liu, Peidong},
+    title     = {{BAD-NeRF: Bundle Adjusted Deblur Neural Radiance Fields}},
+    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+    month     = {June},
+    year      = {2023},
+    pages     = {4170-4179}
 }
 ```
 

@@ -1,9 +1,10 @@
 configargparse
-imageio
+imageio<2.28.0,>=2.26.0
 imageio-ffmpeg
 matplotlib
 numpy
 scikit-learn<1
-scikit-image
+scikit-image<0.20,>=0.19
 torch>=1.8
 torchvision>=0.9.1
+tqdm

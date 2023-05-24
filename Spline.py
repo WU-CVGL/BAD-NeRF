@@ -44,22 +44,28 @@ def taylor_C(x,nth=10):
     return ans
 
 
-def exp_r2q_parallel(r):
+def exp_r2q_parallel(r, eps = 1e-9):
     x, y, z = r[..., 0], r[..., 1], r[..., 2]
     theta = 0.5 * torch.sqrt(x ** 2 + y ** 2 + z ** 2)
+    bool_criterion = (theta < eps).unsqueeze(-1).repeat(1,1,4)
+    return torch.where(bool_criterion, exp_r2q_taylor(x,y,z,theta), exp_r2q(x,y,z,theta))
 
+
+def exp_r2q(x, y, z, theta):
     lambda_ = torch.sin(theta) / (2. * theta)
+    qx = lambda_ * x
+    qy = lambda_ * y
+    qz = lambda_ * z
+    qw = torch.cos(theta)
+    return torch.stack([qx, qy, qz, qw], -1)
 
-    Bool_criterion = (theta < 1e-20)
 
-    qx = Bool_criterion * (1. / 2. - 1. / 12. * theta ** 2 - 1. / 240. * theta ** 4) * x + (~Bool_criterion) * lambda_ * x
-    qy = Bool_criterion * (1. / 2. - 1. / 12. * theta ** 2 - 1. / 240. * theta ** 4) * y + (~Bool_criterion) * lambda_ * y
-    qz = Bool_criterion * (1. / 2. - 1. / 12. * theta ** 2 - 1. / 240. * theta ** 4) * z + (~Bool_criterion) * lambda_ * z
-    qw = Bool_criterion * (1. - 1. / 2. * theta ** 2 + 1. / 24. * theta ** 4) + (~Bool_criterion) * torch.cos(theta)
-
-    q_ = torch.stack([qx, qy, qz, qw], -1)
-
-    return q_
+def exp_r2q_taylor(x, y, z, theta):
+    qx = (1. / 2. - 1. / 12. * theta ** 2 - 1. / 240. * theta ** 4) * x
+    qy = (1. / 2. - 1. / 12. * theta ** 2 - 1. / 240. * theta ** 4) * y
+    qz = (1. / 2. - 1. / 12. * theta ** 2 - 1. / 240. * theta ** 4) * z
+    qw = 1. - 1. / 2. * theta ** 2 + 1. / 24. * theta ** 4
+    return torch.stack([qx, qy, qz, qw], -1)
 
 
 def q_to_R_parallel(q):
@@ -79,7 +85,6 @@ def q_to_Q_parallel(q):
     Q_2 = torch.stack([-y, x, w, z], -1).unsqueeze(-2)
     Q_3 = torch.stack([-x, -y, -z, w], -1).unsqueeze(-2)
     Q_ = torch.cat([Q_0, Q_1, Q_2, Q_3], -2)
-
     return Q_
 
 
@@ -147,8 +152,8 @@ def SE3_to_se3_N(poses_rt):
         pose_se3 = SE3_to_se3(poses_rt[i])
         poses_se3_list.append(pose_se3)
     poses = torch.stack(poses_se3_list, 0)
-
     return poses
+
 
 def se3_to_SE3_N(poses_wu):
     poses_se3_list =[]
@@ -156,8 +161,8 @@ def se3_to_SE3_N(poses_wu):
         pose_se3 = se3_to_SE3(poses_wu[i])
         poses_se3_list.append(pose_se3)
     poses = torch.stack(poses_se3_list, 0)
-
     return poses
+
 
 def se3_2_qt_parallel(wu):
     w, u = wu.split([3, 3], dim=-1)

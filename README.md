@@ -1,4 +1,4 @@
-# BAD-NeRF
+# 😈BAD-NeRF
 
 <a href="https://arxiv.org/abs/2211.12853"><img src="https://img.shields.io/badge/arXiv-2211.12853-b31b1b.svg" height=22.5></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/WU-CVGL/BAD-NeRF" height=22.5></a>
@@ -16,8 +16,8 @@ BAD-NeRF jointly learns the 3D representation and optimizes the camera motion tr
 
 ## Pose Estimation Result
 ![pose estimation](./doc/pose-estimation.jpg)
-## Method overview
 
+## Method overview
 ![method](./doc/overview.jpg)
 
 We follow the real physical image formation process of a motion-blurred image to synthesize blurry images from NeRF. Both NeRF and the motion trajectories are estimated by maximizing the photometric consistency between the synthesized blurry images and the real blurry images.

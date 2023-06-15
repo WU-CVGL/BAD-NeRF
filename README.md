@@ -86,37 +86,37 @@ After rebuttal, we found that sometimes the gradients will be NaN if `cubic B-Sp
 
 `images_test`: To compute deblurring metrics, this folder contains ground truth images theoretically. However, you can copy the blurry images in `images` folder to `images_test` folder if you don't have ground truth images, which is the easiest way to run the code correctly (remember the computed metrics are wrong).
 ```
-#----------------------------------------------------------------------------------------#
-# `images`: img_blur_*.png is the blurry image.                                          #
-#----------------------------------------------------------------------------------------#
-# `images_1`: img_blur_*.png is the same as that in `images` and (optional)              #
-# img_novel_*.png is the sharp novel view image.                                         #
-#----------------------------------------------------------------------------------------#
-# `images_test`: img_gt_*.png is the ground truth image corrseponds to img_blur_*.png.   #
-# Of courese, you can directly put img_blur_*.png to run the code if you don't have gt   #
-# images (then the metrics are wrong).                                                   #
-#----------------------------------------------------------------------------------------#
-`images`: (suppose 10 images)
+#-----------------------------------------------------------------------------------------#
+# images folder: img_blur_*.png is the blurry image.                                      #
+#-----------------------------------------------------------------------------------------#
+# images_1 folder: img_blur_*.png is the same as that in `images` and (optional)          #
+# img_novel_*.png is the sharp novel view image.                                          #
+#-----------------------------------------------------------------------------------------#
+# images_test folder: img_test_*.png should be the ground truth image corrseponds to      #
+# img_blur_*.png to compute PSNR metrics. Of courese, you can directly put img_blur_*.png #
+# to run the code if you don't have gt images (then the metrics arewrong).                #
+#-----------------------------------------------------------------------------------------#
+images folder: (suppose 10 images)
 img_blur_0.png
 img_blur_1.png
 .
 .
 .
 img_blur_9.png
-#------------------------------------------------------------------------------------------#
-`images_1`: (suppose novel view images (**optional**) are placed by a `llffhold=5` interval.)
-**img_novel_0.png**
+#-----------------------------------------------------------------------------------------#
+images_1 folder: (suppose novel view images are placed with an `llffhold=5` interval.)
+img_novel_0.png (optional)
 img_blur_0.png
 img_blur_1.png
 .
 img_blur_4.png
-**img_novel_1.png**
+img_novel_1.png (optional)
 img_blur_5.png
 .
 img_blur_9.png
-**img_novel_2.png**
-#------------------------------------------------------------------------------------------#
-`images_test`: (theoretically gt images, but can be other images)
+img_novel_2.png (optional)
+#-----------------------------------------------------------------------------------------#
+images_test folder: (theoretically gt images, but can be other images)
 img_test_0.png
 img_test_1.png
 .

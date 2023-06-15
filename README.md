@@ -93,8 +93,8 @@ After rebuttal, we found that sometimes the gradients will be NaN if `cubic B-Sp
 # img_novel_*.png is the sharp novel view image.                                          #
 #-----------------------------------------------------------------------------------------#
 # images_test folder: img_test_*.png should be the ground truth image corrseponds to      #
-# img_blur_*.png to compute PSNR metrics. Of courese, you can directly put img_blur_*.png #
-# to run the code if you don't have gt images (then the metrics arewrong).                #
+# img_blur_*.png to compute PSNR metric. Of course, you can directly put img_blur_*.png   #
+# to run the code if you don't have gt images (then the metrics are wrong).               #
 #-----------------------------------------------------------------------------------------#
 images folder: (suppose 10 images)
 img_blur_0.png

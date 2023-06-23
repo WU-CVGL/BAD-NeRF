@@ -5,50 +5,50 @@ delt = 0
 
 
 def skew_symmetric(w):
-    w0,w1,w2 = w.unbind(dim=-1)
+    w0, w1, w2 = w.unbind(dim=-1)
     O = torch.zeros_like(w0)
-    wx = torch.stack([torch.stack([O,-w2,w1],dim=-1),
-                      torch.stack([w2,O,-w0],dim=-1),
-                      torch.stack([-w1,w0,O],dim=-1)],dim=-2)
+    wx = torch.stack([torch.stack([O, -w2, w1], dim=-1),
+                      torch.stack([w2, O, -w0], dim=-1),
+                      torch.stack([-w1, w0, O], dim=-1)], dim=-2)
     return wx
 
 
-def taylor_A(x,nth=10):
+def taylor_A(x, nth=10):
     # Taylor expansion of sin(x)/x
     ans = torch.zeros_like(x)
     denom = 1.
-    for i in range(nth+1):
-        if i>0:
-            denom *= (2*i)*(2*i+1)
-        ans = ans+(-1)**i*x**(2*i)/denom
+    for i in range(nth + 1):
+        if i > 0:
+            denom *= (2 * i) * (2 * i + 1)
+        ans = ans + (-1) ** i * x ** (2 * i) / denom
     return ans
 
 
-def taylor_B(x,nth=10):
+def taylor_B(x, nth=10):
     # Taylor expansion of (1-cos(x))/x**2
     ans = torch.zeros_like(x)
     denom = 1.
-    for i in range(nth+1):
-        denom *= (2*i+1)*(2*i+2)
-        ans = ans+(-1)**i*x**(2*i)/denom
+    for i in range(nth + 1):
+        denom *= (2 * i + 1) * (2 * i + 2)
+        ans = ans + (-1) ** i * x ** (2 * i) / denom
     return ans
 
 
-def taylor_C(x,nth=10):
+def taylor_C(x, nth=10):
     # Taylor expansion of (x-sin(x))/x**3
     ans = torch.zeros_like(x)
     denom = 1.
-    for i in range(nth+1):
-        denom *= (2*i+2)*(2*i+3)
-        ans = ans+(-1)**i*x**(2*i)/denom
+    for i in range(nth + 1):
+        denom *= (2 * i + 2) * (2 * i + 3)
+        ans = ans + (-1) ** i * x ** (2 * i) / denom
     return ans
 
 
-def exp_r2q_parallel(r, eps = 1e-9):
+def exp_r2q_parallel(r, eps=1e-9):
     x, y, z = r[..., 0], r[..., 1], r[..., 2]
     theta = 0.5 * torch.sqrt(x ** 2 + y ** 2 + z ** 2)
-    bool_criterion = (theta < eps).unsqueeze(-1).repeat(1,1,4)
-    return torch.where(bool_criterion, exp_r2q_taylor(x,y,z,theta), exp_r2q(x,y,z,theta))
+    bool_criterion = (theta < eps).unsqueeze(-1).repeat(1, 1, 4)
+    return torch.where(bool_criterion, exp_r2q_taylor(x, y, z, theta), exp_r2q(x, y, z, theta))
 
 
 def exp_r2q(x, y, z, theta):
@@ -94,18 +94,36 @@ def q_to_q_conj_parallel(q):
     return q_conj_
 
 
-def log_q2r_parallel(q):  # here fixme
+def log_q2r_parallel(q, eps_theta=1e-20, eps_w=1e-10):
     x, y, z, w = q[..., 0], q[..., 1], q[..., 2], q[..., 3]
+
     theta = torch.sqrt(x ** 2 + y ** 2 + z ** 2)
 
-    Bool_criterion_1 = (theta < 1e-20)
-    Bool_criterion_2 = (theta >= 1e-20) & (torch.abs(w) < 1e-10)
-    Bool_criterion_3 = (theta >= 1e-20) & (torch.abs(w) >= 1e-10)
+    bool_criterion_theta = (theta < eps_theta)
+    bool_criterion_w = ((theta >= eps_theta) & (torch.abs(w) < eps_w))
 
-    lambda_ = Bool_criterion_1 * (2. / w - 2. / 3. * (theta ** 2) / (w * w * w)) + Bool_criterion_2 * (w / torch.abs(w) * torch.pi / theta) + Bool_criterion_3 * (2. * (torch.arctan(theta / w)) / theta)
+    taylor_theta = log_q2r_taylor_theta(w, theta)
+    taylor_w = log_q2r_taylor_w(w, theta)
+    normal = log_q2r(w, theta)
+    lambda_ = torch.where(bool_criterion_theta, taylor_theta,
+                          torch.where(bool_criterion_w, taylor_w, normal))
+
     r_ = torch.stack([lambda_ * x, lambda_ * y, lambda_ * z], -1)
 
     return r_
+
+
+def log_q2r(w, theta):
+    return 2. * (torch.arctan(theta / w)) / theta
+
+
+def log_q2r_taylor_theta(w, theta):
+    return 2. / w - 2. / 3. * (theta ** 2) / (w * w * w)
+
+
+def log_q2r_taylor_w(w, theta):
+    criterion = w / torch.abs(w + 1e-20)
+    return criterion * torch.pi / theta
 
 
 def SE3_to_se3(Rt, eps=1e-8):  # [...,3,4]
@@ -132,22 +150,22 @@ def SO3_to_so3(R, eps=1e-7):  # [...,3,3]
     return w
 
 
-def se3_to_SE3(wu): # [...,3]
-    w,u = wu.split([3,3],dim=-1)
+def se3_to_SE3(wu):  # [...,3]
+    w, u = wu.split([3, 3], dim=-1)
     wx = skew_symmetric(w)  # wx=[0 -w(2) w(1);w(2) 0 -w(0);-w(1) w(0) 0]
-    theta = w.norm(dim=-1)[...,None,None]  # theta=sqrt(w'*w)
-    I = torch.eye(3,device=w.device,dtype=torch.float32)
+    theta = w.norm(dim=-1)[..., None, None]  # theta=sqrt(w'*w)
+    I = torch.eye(3, device=w.device, dtype=torch.float32)
     A = taylor_A(theta)
     B = taylor_B(theta)
     C = taylor_C(theta)
-    R = I+A*wx+B*wx@wx
-    V = I+B*wx+C*wx@wx
-    Rt = torch.cat([R,(V@u[...,None])],dim=-1)
+    R = I + A * wx + B * wx @ wx
+    V = I + B * wx + C * wx @ wx
+    Rt = torch.cat([R, (V @ u[..., None])], dim=-1)
     return Rt
 
 
 def SE3_to_se3_N(poses_rt):
-    poses_se3_list =[]
+    poses_se3_list = []
     for i in range(poses_rt.shape[0]):
         pose_se3 = SE3_to_se3(poses_rt[i])
         poses_se3_list.append(pose_se3)
@@ -156,7 +174,7 @@ def SE3_to_se3_N(poses_rt):
 
 
 def se3_to_SE3_N(poses_wu):
-    poses_se3_list =[]
+    poses_se3_list = []
     for i in range(poses_wu.shape[0]):
         pose_se3 = se3_to_SE3(poses_wu[i])
         poses_se3_list.append(pose_se3)
@@ -180,8 +198,8 @@ def se3_2_qt_parallel(wu):
 
 
 def SplineN_linear(start_pose, end_pose, poses_number, NUM, device=None):
-    pose_time = poses_number / (NUM-1)
-    
+    pose_time = poses_number / (NUM - 1)
+
     # parallel
     pos_0 = torch.where(pose_time == 0)
     pose_time[pos_0] = pose_time[pos_0] + 0.000001
